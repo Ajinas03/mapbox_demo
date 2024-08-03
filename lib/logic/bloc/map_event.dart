@@ -1,6 +1,5 @@
 part of 'map_bloc.dart';
 
-@immutable
 abstract class MapEvent {}
 
 class ExpandAppBar extends MapEvent {
@@ -19,4 +18,11 @@ class SearchMap extends MapEvent {
   final String searchtext;
 
   SearchMap({required this.searchtext});
+}
+
+class AddMarkerEvent extends MapEvent {
+  final double longitude;
+  final double latitude;
+
+  AddMarkerEvent(this.longitude, this.latitude);
 }

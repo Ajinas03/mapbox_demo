@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:mapbox_demo/model/search_model.dart';
-import 'package:meta/meta.dart';
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart' as mapB;
 
 part 'map_event.dart';
 part 'map_state.dart';
