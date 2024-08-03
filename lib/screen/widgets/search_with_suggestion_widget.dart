@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mapbox_demo/logic/bloc/map_bloc.dart';
 import 'package:mapbox_demo/model/search_model.dart';
 import 'package:mapbox_demo/repo/search.dart';
 
@@ -97,6 +99,9 @@ class _SearchWithSuggestionsState extends State<SearchWithSuggestions> {
                 return ListTile(
                   title: Text(_filteredSuggestions[index].placeName ?? ""),
                   onTap: () {
+                    context.read<MapBloc>().add(SelctMapLocation(
+                        selectedLocation: _filteredSuggestions[index]));
+
                     setState(() {
                       _controller.text =
                           _filteredSuggestions[index].placeName ?? "";

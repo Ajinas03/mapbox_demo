@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mapbox_demo/logic/bloc/map_bloc.dart';
 import 'package:mapbox_demo/screen/widgets/expandable_container.dart';
 import 'package:mapbox_demo/screen/widgets/search_with_suggestion_widget.dart';
 import 'package:mapbox_demo/service/services.dart';
@@ -61,12 +63,25 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              Expanded(
-                  child: MapWidget(
-                onMapCreated: _onMapCreated,
-                cameraOptions: CameraOptions(
-                    center: Point(coordinates: Position(-80.1263, 25.7845)),
-                    zoom: 12.0),
+              Expanded(child: BlocBuilder<MapBloc, MapState>(
+                builder: (context, state) {
+                  return state.selectedLocation == null
+                      ? Text("Please select a location to continue")
+                      : MapWidget(
+                          onMapCreated: _onMapCreated,
+                          styleUri: MapboxStyles.SATELLITE_STREETS,
+                          cameraOptions: CameraOptions(
+                              center: Point(
+                                  coordinates: Position(
+                                      state.selectedLocation?.geometry
+                                              ?.coordinates?[0] ??
+                                          0.0,
+                                      state.selectedLocation?.geometry
+                                              ?.coordinates?[1] ??
+                                          0.0)),
+                              zoom: 12.0),
+                        );
+                },
               ))
             ],
           ),
